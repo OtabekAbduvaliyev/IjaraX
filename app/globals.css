@@ -33,7 +33,9 @@
     transform: translateY(0);
   }
 }
-
+.lekton{
+  font-family: 'Lekton';
+}
 .animate-slide {
   animation: slide 1s ease-in-out infinite;
 }

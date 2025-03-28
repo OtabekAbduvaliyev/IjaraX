@@ -77,7 +77,7 @@ export default function SavedProperties() {
   }
 
   return (
-    <div className="min-h-screen bg-white py-12 font-[Lekton]">
+    <div className="min-h-screen bg-white py-12 lekton">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0">
         <h1 className="text-4xl font-light text-black mb-12">Saqlangan Mulklar</h1>
         

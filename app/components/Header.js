@@ -80,7 +80,7 @@ export default function Header() {
 
   ];
   return (
-    <header className='font-[Lekton] flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>
+    <header className='lekton flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>
       <div className="logo">
         <Link href='/'> <h1 className='text-[36px] font-bold'>IjaraX</h1> </Link>
       </div>

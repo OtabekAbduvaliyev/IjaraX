@@ -80,7 +80,7 @@ export default function RoleSelection() {
       // </div>
       
     // </ProtectedRoute>
-    <div className='role-selection font-[Lekton] flex flex-col justify-center px-[15px] h-screen max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto'>
+    <div className='role-selection lekton flex flex-col justify-center px-[15px] h-screen max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto'>
      <div className='heading'>
       <h1 className='text-[30px] md:text-[52px] font-bold text-center'>Akkountingiz uchun rol tanlang</h1>
      </div>

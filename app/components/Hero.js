@@ -92,7 +92,7 @@ export default function Hero() {
   };
 
   return (
-    <div className='max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto font-[Lekton] px-[25px] pb-[25px]'>
+    <div className='max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto lekton px-[25px] pb-[25px]'>
       <div className="heading pt-[54px]">
         <h1 className='text-[32px] font-bold'>IjaraX platformasi -</h1>
         <h2 className='text-[32px]'>orqali barcha viloyatlardan o'zingizga mos ijaralarni toping !</h2>
