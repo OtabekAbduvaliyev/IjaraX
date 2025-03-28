@@ -41,7 +41,6 @@ export default function SavedProperties() {
       }
     } catch (err) {
       console.error('Error unsaving property:', err);
-      // You might want to show a toast notification here
     }
   };
 

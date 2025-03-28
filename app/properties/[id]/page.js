@@ -8,8 +8,6 @@ import { useAuth } from '../../context/AuthContext';
 import { getPropertyById } from '../../lib/properties';
 import ImageModal from '../../components/ImageModal';
 import { X, FileText } from 'lucide-react';
-
-// Import map component dynamically to avoid SSR issues
 const LocationMap = dynamic(
   () => import('../../components/LocationMap'),
   { ssr: false }
@@ -23,7 +21,7 @@ export default function PropertyDetails() {
   const [error, setError] = useState('');
   const [activeImage, setActiveImage] = useState(0);
   const [showContact, setShowContact] = useState(false);
-  const [selectedImageType, setSelectedImageType] = useState('property'); // 'property' or 'license'
+  const [selectedImageType, setSelectedImageType] = useState('property');
   const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function PropertyDetails() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 font-[Lekton]">
-      {/* Header Section */}
+      {}
       <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div>
@@ -88,9 +86,9 @@ export default function PropertyDetails() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* Main Content */}
+        {}
         <div className="lg:col-span-2 space-y-6">
-          {/* Image Gallery */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-4">
               {selectedImageType === 'property' && property.images && property.images.length > 0 && (
@@ -114,7 +112,7 @@ export default function PropertyDetails() {
                 />
               )}
               
-              {/* Navigation Arrows */}
+              {}
               {((selectedImageType === 'property' && property.images?.length > 1) ||
                 (selectedImageType === 'license' && property.licenseImages?.length > 1)) && (
                 <>
@@ -144,7 +142,7 @@ export default function PropertyDetails() {
               )}
             </div>
 
-            {/* Image Type Selector - Only show Mulk Rasmlari */}
+            {}
             <div className="flex gap-3 mb-4">
               <button
                 className="px-4 py-2 rounded-xl font-medium transition-colors bg-black text-white"
@@ -153,7 +151,7 @@ export default function PropertyDetails() {
               </button>
             </div>
 
-            {/* Thumbnail Gallery */}
+            {}
             {property?.images?.length > 1 && (
               <div className="flex gap-2 overflow-x-auto">
                 {property.images.map((image, index) => (
@@ -177,7 +175,7 @@ export default function PropertyDetails() {
             )}
           </div>
 
-          {/* Description */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Mulk Tavsifi
@@ -185,7 +183,7 @@ export default function PropertyDetails() {
             <p className="text-gray-600 whitespace-pre-line">{property.description}</p>
           </div>
 
-          {/* Location */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Joylashuv
@@ -203,9 +201,9 @@ export default function PropertyDetails() {
           </div>
         </div>
 
-        {/* Sidebar */}
+        {}
         <div className="space-y-6">
-          {/* Property Details */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Mulk Tafsilotlari
@@ -241,7 +239,7 @@ export default function PropertyDetails() {
             </div>
           </div>
 
-          {/* Amenities */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Qulayliklar
@@ -269,7 +267,7 @@ export default function PropertyDetails() {
             </div>
           </div>
 
-          {/* Contact Information */}
+          {}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             {user ? (
               <div>
@@ -330,7 +328,7 @@ export default function PropertyDetails() {
         </div>
       </div>
 
-      {/* License Images Section - Now showing below main content */}
+      {}
       {property.licenseImages && property.licenseImages.length > 0 && (
         <div className="bg-white rounded-2xl p-6 shadow-sm mt-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
@@ -368,7 +366,7 @@ export default function PropertyDetails() {
         </div>
       )}
 
-      {/* Modal */}
+      {}
       {modalImage && (
         <ImageModal
           image={modalImage}

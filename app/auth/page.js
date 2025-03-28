@@ -7,16 +7,31 @@ import { signInWithEmail, signInWithGoogle, signUpWithEmail } from '../lib/auth'
 import { getUserRole } from '../lib/user';
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
+
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [emailWarning, setEmailWarning] = useState('');
+  const [passwordWarning, setPasswordWarning] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setEmailWarning('');
+    setPasswordWarning('');
+    if (!email.trim()) {
+      setEmailWarning("Email kiritish majburiy!");
+      return;
+    }
+    if (!password.trim()) {
+      setPasswordWarning("Parol kiritish majburiy!");
+      return;
+    }
+
     setError('');
     setLoading(true);
 
@@ -29,17 +44,16 @@ export default function AuthPage() {
 
       if (user) {
         if (isLogin) {
-          // Check user role for login
           const { role, error: roleError } = await getUserRole(user.uid);
           if (roleError) throw new Error(roleError);
 
           if (role) {
-            router.push('/'); // Redirect to home page if role exists
+            router.push('/'); //agar userni roli mavjud bo'lsa, home pagega jonatvoradi
           } else {
-            router.push('/role-selection'); // Redirect to role selection if no role
+            router.push('/role-selection');
           }
         } else {
-          router.push('/role-selection'); // For signup, go to role selection
+          router.push('/role-selection');
         }
       }
     } catch (err) {
@@ -57,14 +71,13 @@ export default function AuthPage() {
       if (error) throw new Error(error);
 
       if (user) {
-        // Check if user has a role
         const { role, error: roleError } = await getUserRole(user.uid);
         if (roleError) throw new Error(roleError);
 
         if (role) {
-          router.push('/'); // Redirect to home page if role exists
+          router.push('/');
         } else {
-          router.push('/role-selection'); // Redirect to role selection if no role
+          router.push('/role-selection');
         }
       }
     } catch (err) {
@@ -82,13 +95,31 @@ export default function AuthPage() {
       </div>
       <div className='left-side px-[25px] lg:px-[0px]  w-[100%] lg:max-w-[416]'>
         <h1 className='text-[35px] lg:text-[45px] font-[Lekton] font-[700] '>{isLogin ? "Hisobga kirish": "Ro'yxatdan o'tish"}</h1>
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+            <span className="block sm:inline">
+              {error === 'Firebase: Error (auth/invalid-email).' && 'Email noto\'g\'ri formatda kiritildi'}
+              {error === 'Firebase: Error (auth/user-not-found).' && 'Foydalanuvchi topilmadi'}
+              {error === 'Firebase: Error (auth/wrong-password).' && 'Parol noto\'g\'ri'}
+              {error === 'Firebase: Error (auth/email-already-in-use).' && 'Bu email allaqachon ro\'yxatdan o\'tgan'}
+              {error === 'Firebase: Error (auth/weak-password).' && 'Parol kamida 6 ta belgidan iborat bo\'lishi kerak'}
+              {!error.includes('Firebase') && error}
+            </span>
+          </div>
+        )}
         <form className='form mt-[48px]' onSubmit={handleSubmit} >
           <div className='email flex flex-col'>
-            <label htmlFor='email' className='text-[14px] text-[20px] font-[700]'>Foydalanuvchi emaili:</label>
+            <div className="flex justify-between items-center">
+              <label htmlFor='email' className='text-[14px] text-[20px] font-[700]'>Foydalanuvchi emaili:</label>
+              {emailWarning && <span className="text-red-500 text-sm">{emailWarning}</span>}
+            </div>
             <input value={email}  onChange={(e)=>setEmail(e.target.value)} id='email' className='w-[100%] lg:w-[416px]  h-[50px] border-1 rounded-[10px]  placeholder:font-[Lekton] pl-[12px]' placeholder='Emailingizni kiritng...' />
           </div>
           <div className='password flex flex-col mt-[22px]'>
-            <label htmlFor='password' className='text-[20px] font-[700]'>Foydalanuvchi kaliti:</label>
+            <div className="flex justify-between items-center">
+              <label htmlFor='password' className='text-[20px] font-[700]'>Foydalanuvchi kaliti:</label>
+              {passwordWarning && <span className="text-red-500 text-sm">{passwordWarning}</span>}
+            </div>
             <input type='password'  value={password} onChange={(e)=>setPassword(e.target.value)} id='password' className='font-sans w-[100%] lg:w-[416px]  h-[50px] border-1 rounded-[10px]  placeholder:font-[Lekton] pl-[12px]' placeholder='Parolinigzni kiritng...' />
           </div>
           <div className='enter-button'>

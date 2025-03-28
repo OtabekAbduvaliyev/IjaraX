@@ -1,4 +1,4 @@
-import { getAllProperties } from "./lib/properties"; // Fetch properties
+import { getAllProperties } from "./lib/properties"; 
 
 export default async function sitemap() {
     const baseUrl = "https://ijara-x.vercel.app";

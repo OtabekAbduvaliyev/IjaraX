@@ -3,7 +3,7 @@ export async function generateMetadata({ params }) {
 
     try {
         const res = await fetch(`https://ijara-x.vercel.app/api/metadata/${id}`, {
-            next: { revalidate: 60 }, // Caches for 1 minute
+            next: { revalidate: 60 },
         });
         const metadata = await res.json();
 
@@ -36,8 +36,6 @@ export async function generateMetadata({ params }) {
         };
     }
 }
-
-// ✅ Ensure this function returns children (React Component)
 export default function PropertiesLayout({ children }) {
     return <>{children}</>;
 }

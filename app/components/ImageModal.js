@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 
 export default function ImageModal({ image, onClose }) {
-  // Close modal on escape key press
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') onClose();
@@ -12,8 +11,6 @@ export default function ImageModal({ image, onClose }) {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
-
-  // Prevent scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -24,7 +21,7 @@ export default function ImageModal({ image, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
       <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4">
-        {/* Close button */}
+        {}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100"
@@ -34,7 +31,7 @@ export default function ImageModal({ image, onClose }) {
           </svg>
         </button>
 
-        {/* Image container */}
+        {}
         <div className="relative w-full h-full">
           <Image
             src={image}

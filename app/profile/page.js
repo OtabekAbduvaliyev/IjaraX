@@ -51,7 +51,7 @@ function Profile() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto py-8 px-4 xl:px-[0px] sm:px-6 lg:px-8">
-        {/* Profile Header Section */}
+        {}
         <div className="mb-12">
           <div className="flex items-start justify-between border-b border-gray-200 pb-6">
             <div>
@@ -69,7 +69,7 @@ function Profile() {
           </div>
         </div>
 
-        {/* Profile Stats Grid */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-12">
           <div className="p-6 border border-gray-200 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Jami E'lonlar</div>
@@ -77,7 +77,7 @@ function Profile() {
           </div>
         </div>
 
-        {/* Properties Section */}
+        {}
         <div className="mb-8">
           <h2 className="text-xl font-medium text-gray-900 mb-6">Mening E'lonlarim</h2>
           
@@ -132,7 +132,7 @@ function Profile() {
                         {'Faol'}
                       </span>
                     </div>
-                    {/* <p className="text-sm text-gray-500 mb-3">{formatLocation(property.location)}</p> */}
+                    {}
                     <p className="text-sm text-gray-500 mb-3 ">{property.address}</p>                    
                     <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
                       <div>

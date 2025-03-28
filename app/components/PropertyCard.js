@@ -17,7 +17,7 @@ import {
   DoorOpen,
   BedDouble,
   Tv2,
-  CheckCircle, // Add this import
+  CheckCircle,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { saveProperty, unsaveProperty, isPropertySaved } from '../lib/properties';
@@ -95,7 +95,7 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
       href={`/properties/${property.id}`} 
       className="group relative flex flex-col md:flex-row bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
     >
-      {/* Save/Unsave Buttons - Moved outside image container */}
+      {}
       <button
         onClick={handleSaveToggle}
         disabled={isLoading}
@@ -125,7 +125,7 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
         </button>
       )}
 
-      {/* Property Image */}
+      {}
       <div className="relative md:w-1/3 h-38 overflow-hidden">
         <img
           src={property.images[0]}
@@ -134,9 +134,9 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
         />
       </div>
 
-      {/* Property Details */}
+      {}
       <div className="md:w-2/3 p-4 space-y-3 border-l border-gray-100 relative">
-        {/* Property Name and Price */}
+        {}
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2">
             <h3 className="property-name text-sm md:text-lg font-semibold text-gray-900 truncate">
@@ -158,7 +158,7 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
           </p>
         </div>
 
-        {/* Location */}
+        {}
         <div className="flex items-center text-gray-700 space-x-2">
           <MapPin className="w-4 h-4 text-gray-500" />
           <p className="text-xs truncate">
@@ -166,7 +166,7 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
           </p>
         </div>
 
-        {/* Property Details */}
+        {}
         <div className="flex items-center space-x-3 text-gray-700">
           <div className="flex items-center space-x-1">
             <Bed className="w-4 h-4 text-gray-500" />
@@ -182,7 +182,7 @@ export default function MinimalistPropertyCard({ property, onUnsave, showUnsaveB
           </div>
         </div>
 
-        {/* Amenities */}
+        {}
         <div className="flex flex-wrap gap-1.5">
           {Object.keys(amenityIcons)
             .filter(key => property.amenities?.[key])

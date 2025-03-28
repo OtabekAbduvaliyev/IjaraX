@@ -9,14 +9,10 @@ import { useAuth } from '../../../context/AuthContext';
 import { getPropertyById, updateProperty, deleteProperty } from '../../../lib/properties';
 import { Plus, X, FileText } from 'lucide-react';
 import DeleteModal from '@/app/components/DeleteModal';
-
-// Import map component dynamically to avoid SSR issues
 const LocationMap = dynamic(
   () => import('../../../components/LocationMap'),
   { ssr: false }
 );
-
-// Add these constants at the top of the file
 const cities = [
   'Tashkent',
   'Namangan',
@@ -59,8 +55,6 @@ function EditProperty() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [location, setLocation] = useState({ lat: 41.2995, lng: 69.2401 });
   const [address, setAddress] = useState('');
-
-  // Image states
   const [images, setImages] = useState([]);
   const [licenseImages, setLicenseImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -69,8 +63,6 @@ function EditProperty() {
   const [removedLicenseImages, setRemovedLicenseImages] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
   const [existingLicenseImages, setExistingLicenseImages] = useState([]);
-
-  // Update formData to match create page amenities
   const [formData, setFormData] = useState({
     name: '',
     place: 'Toshkent',
@@ -84,20 +76,18 @@ function EditProperty() {
     phoneNumber: '',
     telegramAccount: '',
     amenities: {
-      wifi: false,          // Wi-Fi
-      airConditioning: false, // Konditsioner
-      parking: false,       // Parking
-      balcony: false,      // Balkon
-      elevator: false,      // Lift
-      furniture: false,     // Mebel
-      refrigerator: false,  // Muzlatgich
-      washer: false,       // Kir yuvish mashinasi
-      dishwasher: false,   // Idish-tovoq yuvish mashinasi
-      security: false      // Xavfsizlik
+      wifi: false,
+      airConditioning: false,
+      parking: false,
+      balcony: false,
+      elevator: false,
+      furniture: false,
+      refrigerator: false,
+      washer: false,
+      dishwasher: false,
+      security: false
     }
   });
-
-  // Dropzone setup
   const onImagesDropped = useCallback((acceptedFiles) => {
     setImages(prev => [...prev, ...acceptedFiles]);
     const newPreviews = acceptedFiles.map(file => ({
@@ -125,8 +115,6 @@ function EditProperty() {
     accept: { 'image/*': [] },
     onDrop: onLicenseImagesDropped
   });
-
-  // Remove image handlers
   const removeExistingImage = (url, isLicense = false) => {
     if (isLicense) {
       setExistingLicenseImages(prev => prev.filter(img => img !== url));
@@ -152,8 +140,6 @@ function EditProperty() {
       });
     }
   };
-
-  // Load property data
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -189,8 +175,6 @@ function EditProperty() {
       fetchProperty();
     }
   }, [params, user, router]);
-
-  // Clean up previews on unmount
   useEffect(() => {
     return () => {
       previewImages.forEach(preview => URL.revokeObjectURL(preview.preview));
@@ -302,7 +286,7 @@ function EditProperty() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Basic Property Information */}
+            {}
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -437,7 +421,7 @@ function EditProperty() {
               </div>
             </div>
 
-            {/* Detailed Property Information */}
+            {}
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label htmlFor="phoneNumber" className="block text-sm font-bold text-gray-700 mb-2">
@@ -467,7 +451,7 @@ function EditProperty() {
               </div>
             </div>
 
-            {/* Rental Details */}
+            {}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="description" className="block text-sm font-bold text-gray-700 mb-2">
@@ -484,7 +468,7 @@ function EditProperty() {
               </div>
             </div>
 
-            {/* Amenities */}
+            {}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Qulayliklar
@@ -515,7 +499,7 @@ function EditProperty() {
               </div>
             </div>
 
-            {/* Location */}
+            {}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Joylashuv
@@ -535,7 +519,7 @@ function EditProperty() {
               )}
             </div>
 
-            {/* Images Upload */}
+            {}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Mulk Rasmlari
@@ -609,7 +593,7 @@ function EditProperty() {
               )}
             </div>
 
-            {/* License Images Upload */}
+            {}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Hujjatlar va Litsenziyalar
@@ -683,7 +667,7 @@ function EditProperty() {
               )}
             </div>
 
-            {/* Contact Information */}
+            {}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="phoneNumber" className="block text-sm font-bold text-gray-700 mb-2">
@@ -713,7 +697,7 @@ function EditProperty() {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {}
             <div className="text-start md:text-end">
               <button
                 type="submit"

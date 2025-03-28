@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
-// Fix default marker icon issue
 const icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -20,7 +18,6 @@ function MapClickHandler({ onLocationSelect }) {
       const { lat, lng } = e.latlng;
       
       try {
-        // Get address from OpenStreetMap Nominatim
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
         );

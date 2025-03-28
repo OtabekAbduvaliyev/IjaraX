@@ -7,8 +7,6 @@ import { getOptimizedImageUrl } from './imageUtils';
 export const createProperty = async (propertyData, images, licenseImages) => {
   try {
     const propertyId = uuidv4();
-    
-    // Upload property images to Supabase
     const imageUrls = await Promise.all(
       images.map(async (file) => {
         const fileName = `${propertyId}/${uuidv4()}-${file.name}`;
@@ -25,8 +23,6 @@ export const createProperty = async (propertyData, images, licenseImages) => {
         return getOptimizedImageUrl(publicUrl);
       })
     );
-
-    // Upload license images to Supabase
     const licenseImageUrls = await Promise.all(
       licenseImages.map(async (file) => {
         const fileName = `${propertyId}/licenses/${uuidv4()}-${file.name}`;
@@ -43,8 +39,6 @@ export const createProperty = async (propertyData, images, licenseImages) => {
         return getOptimizedImageUrl(publicUrl);
       })
     );
-
-    // Create property document in Firestore
     const propertyDoc = await addDoc(collection(db, 'properties'), {
       id: propertyId,
       ...propertyData,
@@ -118,8 +112,6 @@ export const getPropertyById = async (propertyId) => {
     return { property: null, error: error.message };
   }
 };
-
-// Function to save a property
 export const saveProperty = async (userId, propertyId) => {
   try {
     const savedRef = collection(db, 'saved_properties');
@@ -134,8 +126,6 @@ export const saveProperty = async (userId, propertyId) => {
     return { success: false, error: error.message };
   }
 };
-
-// Function to unsave a property
 export const unsaveProperty = async (userId, propertyId) => {
   try {
     const savedRef = collection(db, 'saved_properties');
@@ -154,8 +144,6 @@ export const unsaveProperty = async (userId, propertyId) => {
     return { success: false, error: error.message };
   }
 };
-
-// Function to check if a property is saved
 export const isPropertySaved = async (userId, propertyId) => {
   try {
     const savedRef = collection(db, 'saved_properties');
@@ -170,8 +158,6 @@ export const isPropertySaved = async (userId, propertyId) => {
     return { isSaved: false, error: error.message };
   }
 };
-
-// Function to get all saved properties for a user
 export const getSavedProperties = async (userId) => {
   try {
     const savedRef = collection(db, 'saved_properties');
@@ -179,8 +165,6 @@ export const getSavedProperties = async (userId) => {
     const querySnapshot = await getDocs(q);
     
     const savedIds = querySnapshot.docs.map(doc => doc.data().propertyId);
-    
-    // Get all saved properties
     const properties = [];
     for (const propertyId of savedIds) {
       const { property } = await getPropertyById(propertyId);
@@ -198,7 +182,6 @@ export const getSavedProperties = async (userId) => {
 
 export const deleteProperty = async (propertyId) => {
   try {
-    // Delete the property document from Firestore
     const propertyRef = collection(db, 'properties');
     const q = query(propertyRef, where('id', '==', propertyId));
     const querySnapshot = await getDocs(q);
@@ -209,8 +192,6 @@ export const deleteProperty = async (propertyId) => {
 
     const propertyDoc = querySnapshot.docs[0];
     await deleteDoc(propertyDoc.ref);
-
-    // Delete images from Supabase storage
     const { data: files, error: listError } = await supabase.storage
       .from('properties')
       .list(propertyId);
@@ -233,7 +214,6 @@ export const deleteProperty = async (propertyId) => {
 
 export const updateProperty = async (propertyId, propertyData, newImages = [], newLicenseImages = [], removedImages = [], removedLicenseImages = []) => {
   try {
-    // Get the property document
     const propertyRef = collection(db, 'properties');
     const q = query(propertyRef, where('id', '==', propertyId));
     const querySnapshot = await getDocs(q);
@@ -244,12 +224,10 @@ export const updateProperty = async (propertyId, propertyData, newImages = [], n
 
     const propertyDoc = querySnapshot.docs[0];
     const currentData = propertyDoc.data();
-
-    // Delete removed images from storage
     const allRemovedImages = [...removedImages, ...removedLicenseImages];
     if (allRemovedImages.length > 0) {
       for (const imageUrl of allRemovedImages) {
-        const path = imageUrl.split('/').pop(); // Get the filename from URL
+        const path = imageUrl.split('/').pop();
         const { error: deleteError } = await supabase.storage
           .from('properties')
           .remove([`${propertyId}/${path}`]);
@@ -257,8 +235,6 @@ export const updateProperty = async (propertyId, propertyData, newImages = [], n
         if (deleteError) throw deleteError;
       }
     }
-
-    // Upload new images
     const newImageUrls = await Promise.all(
       newImages.map(async (file) => {
         const fileName = `${propertyId}/${uuidv4()}-${file.name}`;
@@ -275,8 +251,6 @@ export const updateProperty = async (propertyId, propertyData, newImages = [], n
         return getOptimizedImageUrl(publicUrl);
       })
     );
-
-    // Upload new license images
     const newLicenseImageUrls = await Promise.all(
       newLicenseImages.map(async (file) => {
         const fileName = `${propertyId}/licenses/${uuidv4()}-${file.name}`;
@@ -293,8 +267,6 @@ export const updateProperty = async (propertyId, propertyData, newImages = [], n
         return getOptimizedImageUrl(publicUrl);
       })
     );
-
-    // Update images arrays
     const updatedImages = [
       ...currentData.images.filter(url => !removedImages.includes(url)),
       ...newImageUrls
@@ -304,8 +276,6 @@ export const updateProperty = async (propertyId, propertyData, newImages = [], n
       ...currentData.licenseImages.filter(url => !removedLicenseImages.includes(url)),
       ...newLicenseImageUrls
     ];
-
-    // Update property document
     await updateDoc(propertyDoc.ref, {
       ...propertyData,
       images: updatedImages,

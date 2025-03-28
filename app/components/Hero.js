@@ -9,7 +9,7 @@ export default function Hero() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({});
-  const [startIndex, setStartIndex] = useState(0); // Index for pagination
+  const [startIndex, setStartIndex] = useState(0); 
 
   useEffect(() => {
     fetchProperties();
@@ -58,7 +58,7 @@ export default function Hero() {
       }
 
       setProperties(filteredProperties);
-      setStartIndex(0); // Reset index when fetching new properties
+      setStartIndex(0);
     } catch (error) {
       console.error('Error fetching properties:', error);
     } finally {

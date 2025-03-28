@@ -21,14 +21,10 @@ export async function GET(req, { params }) {
                 }
             });
         }
-
-        // Format price for description
         const priceFormatted = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'UZS'
         }).format(property.price);
-
-        // Create a rich description
         const description = `${property.name} - ${priceFormatted}. ${property.description?.slice(0, 120)}...`;
 
         return new Response(JSON.stringify({
