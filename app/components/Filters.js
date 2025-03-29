@@ -29,14 +29,14 @@ export default function Filters({ onFilterChange }) {
   };
 
   return (
-    <div className="border-1 rounded-[15px] py-[25px] px-[20px] max-w-[100%px] xl:w-[320px] 2xl:w-[350px]">
-      <div className="space-y-4">
-        <div>
-          <div className="flex justify-between items-center mb-1">
-            <label className="block text-[24px] ">
-              Narx oralig'i:
+    <div className="w-full lg:max-w-[350px] bg-white rounded-lg border border-zinc-200 shadow-sm">
+      <div className="p-4 md:p-6 space-y-5">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-medium text-zinc-700">
+              Narx oralig'i
             </label>
-            <span className="text-sm font-bold border rounded-[5px] py-[1px] px-[18px] ">
+            <span className="text-xs font-medium bg-zinc-100 text-zinc-900 px-2 py-1 rounded-md">
               {filters.priceRange} MLN
             </span>
           </div>
@@ -48,84 +48,68 @@ export default function Filters({ onFilterChange }) {
             max="520"
             value={filters.priceRange}
             onChange={handlePriceRangeChange}
-            className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            className="w-full h-1.5 bg-zinc-200 rounded-full appearance-none cursor-pointer accent-zinc-800 hover:accent-zinc-700"
           />
-          <div className="flex justify-between text-xs text-[#171717] mt-1">
-            <span>0</span>
-            <span>520</span>
+          <div className="flex justify-between">
+            <span className="text-xs text-zinc-500">0</span>
+            <span className="text-xs text-zinc-500">520</span>
           </div>
         </div>
 
-        <div>
-          <label className="block text-[20px] font-medium text-[#171717] mb-2">
-            Mulk turi:
-          </label>
-          <select
-            name="propertyType"
-            value={filters.propertyType}
-            onChange={handleChange}
-            className="block w-full rounded-[10px] border  focus:border-blue-500 focus:black py-1 px-[15px]"
-          >
-            <option value="">Mulk turini tanlang</option>
-            <option value="apartment">Kvartira</option>
-            <option value="house">Uy</option>
-            <option value="villa">Villa</option>
-            <option value="room">Xona</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-[20px] font-medium text-[#171717] mb-2">
-            To'lov turi:
-          </label>
-          <select
-            name="rentalType"
-            value={filters.rentalType}
-            onChange={handleChange}
-            className="block w-full rounded-[10px] border  focus:border-blue-500 focus:black py-1 px-[15px]"
-          >
-            <option value="">To'lov turini tanlang</option>
-            <option value="daily">Kunlik</option>
-            <option value="monthly">Oylik</option>
-            <option value="yearly">Yillik</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-[20px] font-medium text-[#171717] mb-2">
-            Xonalar soni:
-          </label>
-          <select
-            name="bedrooms"
-            value={filters.bedrooms}
-            onChange={handleChange}
-            className="block w-full rounded-[10px] border  focus:border-blue-500 focus:black py-1 px-[15px]"
-          >
-            <option value="">Xonalar soni tanlang</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4+">4+</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-[20px] font-medium text-[#171717] mb-2">
-            Joylashuv:
-          </label>
-          <select
-            name="location"
-            value={filters.location}
-            onChange={handleChange}
-            className="block w-full rounded-[10px] border  focus:border-blue-500 focus:black py-1 px-[15px]"
-          >
-            <option value="">Joylashuv tanlang</option>
-            <option value="tashkent">Toshkent</option>
-            <option value="samarkand">Samarqand</option>
-            <option value="bukhara">Buxoro</option>
-            <option value="andijan">Andijon</option>
-          </select>
-        </div>
+        {['propertyType', 'rentalType', 'bedrooms', 'location'].map((field) => (
+          <div key={field} className="space-y-2">
+            <label className="text-sm font-medium text-zinc-700">
+              {field === 'propertyType' && "Mulk turi"}
+              {field === 'rentalType' && "To'lov turi"}
+              {field === 'bedrooms' && "Xonalar soni"}
+              {field === 'location' && "Joylashuv"}
+            </label>
+            <select
+              name={field}
+              value={filters[field]}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-sm bg-white border border-zinc-200 rounded-md shadow-sm outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-colors hover:border-zinc-300"
+            >
+              <option value="">
+                {field === 'propertyType' && "Mulk turini tanlang"}
+                {field === 'rentalType' && "To'lov turini tanlang"}
+                {field === 'bedrooms' && "Xonalar soni tanlang"}
+                {field === 'location' && "Joylashuv tanlang"}
+              </option>
+              {field === 'propertyType' && (
+                <>
+                  <option value="apartment">Kvartira</option>
+                  <option value="house">Uy</option>
+                  <option value="villa">Villa</option>
+                  <option value="room">Xona</option>
+                </>
+              )}
+              {field === 'rentalType' && (
+                <>
+                  <option value="daily">Kunlik</option>
+                  <option value="monthly">Oylik</option>
+                  <option value="yearly">Yillik</option>
+                </>
+              )}
+              {field === 'bedrooms' && (
+                <>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4+">4+</option>
+                </>
+              )}
+              {field === 'location' && (
+                <>
+                  <option value="tashkent">Toshkent</option>
+                  <option value="samarkand">Samarqand</option>
+                  <option value="bukhara">Buxoro</option>
+                  <option value="andijan">Andijon</option>
+                </>
+              )}
+            </select>
+          </div>
+        ))}
       </div>
     </div>
   );

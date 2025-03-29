@@ -27,13 +27,15 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
           getDoc(doc(db, 'users', landlordId))
         ]);
 
+        const receiverData = receiverDoc.data();
+        
         setUsers({
           [user.uid]: {
             email: user.email,
             isPropertyOwner: user.uid === landlordId
           },
           [landlordId]: {
-            email: receiverDoc.data()?.email || 'User',
+            email: receiverData?.email || 'Unknown',
             isPropertyOwner: true
           }
         });
@@ -80,7 +82,7 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg w-full max-w-lg h-[600px] flex flex-col">
+      <div className="bg-white rounded-lg w-full max-w-md md:max-w-xl lg:max-w-2xl h-[600px] flex flex-col">
         {/* Header */}
         <div className="p-4 border-b flex justify-between items-center">
           <h3 className="text-lg font-semibold">{propertyTitle}</h3>

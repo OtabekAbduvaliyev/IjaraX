@@ -92,20 +92,21 @@ export default function Hero() {
   };
 
   return (
-    <div className='max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto lekton px-[25px] pb-[25px]'>
-      <div className="heading pt-[54px]">
-        <h1 className='text-[32px] font-bold'>IjaraX platformasi -</h1>
-        <h2 className='text-[32px]'>orqali barcha viloyatlardan o'zingizga mos ijaralarni toping !</h2>
+    <div className='lekton px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto'>
+      <div className="pt-8">
+        <h1 className='text-2xl md:text-3xl font-bold'>IjaraX platformasi -</h1>
+        <h2 className='text-xl md:text-2xl mt-2'>orqali barcha viloyatlardan o'zingizga mos ijaralarni toping !</h2>
       </div>
 
-      <div className="mt-[46px] xl:flex justify-between xl:gap-[40px] 2xl:gap-[50px]">
-        <div className="filter-side">
+      <div className="mt-6 lg:mt-8 flex flex-col lg:flex-row gap-6">
+        <div className="w-full lg:w-[280px] xl:w-[320px] 2xl:w-[350px] shrink-0">
           <Filters onFilterChange={handleFilterChange} />
         </div>
-        <div className="propertyside relative mt-[50px] xl:mt-[0px]">
+
+        <div className="flex-grow">
           {loading ? (
-            <div className="flex justify-center items-center h-64 mt-6">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-zinc-600"></div>
             </div>
           ) : (
             <div className="relative">
@@ -114,9 +115,9 @@ export default function Hero() {
                   <PropertyCard key={property.id} property={property} />
                 ))}
                 {properties.length === 0 && (
-                  <div className="col-span-full text-center py-12">
-                    <h3 className="text-lg font-medium text-gray-900">Mulk topilmadi</h3>
-                    <p className="mt-2 text-gray-500">Filtlarni o'zgartiring</p>
+                  <div className="col-span-full text-center py-12 bg-zinc-50 rounded-lg">
+                    <h3 className="text-lg font-medium text-zinc-900">Mulk topilmadi</h3>
+                    <p className="mt-2 text-zinc-500">Filtlarni o'zgartiring</p>
                   </div>
                 )}
               </div>
@@ -124,26 +125,31 @@ export default function Hero() {
           )}
         </div>
 
-        <div className="hidden pagination lg:flex flex-col gap-[8px] justify-center">
+        <div className="hidden lg:flex flex-col items-center gap-3 pt-4">
           <button 
             onClick={prevProperties} 
             disabled={startIndex === 0} 
-            className={`w-[25px] h-[32px] border rounded-[8px] flex justify-center items-center ${startIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            <IoIosArrowUp className='text-[18px]' />
+            className={`w-8 h-8 border rounded-lg flex items-center justify-center transition-colors
+              ${startIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-50'}`}>
+            <IoIosArrowUp className='text-lg' />
           </button>
-          <div className="text-center text-sm flex flex-col">
-            <span>{calculatePageNumbers().currentPage}</span>
-            <span className="text-gray-400"> - </span>
-            <span>{calculatePageNumbers().totalPages}</span>
+          
+          <div className="text-sm font-medium">
+            <div>{calculatePageNumbers().currentPage}</div>
+            <div className="text-zinc-400">/</div>
+            <div>{calculatePageNumbers().totalPages}</div>
           </div>
+
           <button 
             onClick={nextProperties} 
             disabled={startIndex + 3 >= properties.length} 
-            className={`w-[25px] h-[32px] border rounded-[8px] flex justify-center items-center ${startIndex + 3 >= properties.length ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            <IoIosArrowDown className='text-[18px]' />
+            className={`w-8 h-8 border rounded-lg flex items-center justify-center transition-colors
+              ${startIndex + 3 >= properties.length ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-50'}`}>
+            <IoIosArrowDown className='text-lg' />
           </button>
         </div>
-        <div className="pagination lg:hidden justify-center mt-[20px] flex flex-row items-center gap-[8px]">
+
+        <div className="lg:hidden flex justify-center items-center gap-4 mt-6">
           <button 
             onClick={prevProperties} 
             disabled={startIndex === 0} 

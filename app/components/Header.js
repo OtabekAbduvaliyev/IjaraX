@@ -12,6 +12,8 @@ import { FaRegUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { CiUser } from "react-icons/ci";
 import { HiMiniBars3 } from "react-icons/hi2";
+import { IoChatbubbleOutline } from "react-icons/io5";
+
 export default function Header() {
   const { user, userRole } = useAuth();
   const router = useRouter();
@@ -62,7 +64,6 @@ export default function Header() {
       label: (
         <Link href={'/'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
       ),
-      
     },
     {
       key: '2',
@@ -77,10 +78,15 @@ export default function Header() {
         <Link href={'/saved'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><CiHeart className='text-[18px]'/>Yoqtirilganlar</Link>
       ),
     },
-
+    {
+      key: '4',
+      label: (
+        <Link href={'/chats'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoChatbubbleOutline className='text-[18px]'/>Chatlar</Link>
+      ),
+    },
   ];
   return (
-    <header className='lekton flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>
+    <header className='lekton mt-[] flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>
       <div className="logo">
         <Link href='/'> <h1 className='text-[36px] font-bold'>IjaraX</h1> </Link>
       </div>
@@ -89,6 +95,7 @@ export default function Header() {
           <Link href={'/'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
           <Link href={'/saved'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><CiHeart className='text-[18px]'/>Yoqtirilganlar</Link>
           {userRole == "landlord" && (<Link href={'/properties/new'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoKeyOutline className='text-[18px]'/>Ijara joylash</Link>)}
+          <Link href={'/chats'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoChatbubbleOutline className='text-[18px]'/>Chatlar</Link>
         </div>
         <div className="account-menu lg:hidden">
           <Dropdown
