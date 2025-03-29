@@ -1,6 +1,14 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
+import { Lekton } from 'next/font/google'
+
+const lekton = Lekton({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+})
+
 
 import HeaderOrg from "./components/HeaderProtector";
 
@@ -42,7 +50,7 @@ export default function RootLayout({ children }) {
   
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lekton.className}>
         <AuthProvider>
          <HeaderOrg />
           {children}</AuthProvider>
