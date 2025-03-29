@@ -200,7 +200,7 @@ export default function CreatePropertyForm() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-[25px] xl:px-0 py-8 lekton">
+    <div className=" px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto w-full max-w-7xl mx-auto px-[25px] xl:px-0 py-8 lekton">
       <div className="space-y-8">
         <h1 className="text-3xl font-bold text-gray-900 ">
           Mulk E'lonini Yaratish

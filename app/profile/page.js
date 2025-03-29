@@ -51,36 +51,33 @@ function Profile() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto py-8 px-4 xl:px-[0px] sm:px-6 lg:px-8">
-        {}
-        <div className="mb-12">
-          <div className="flex items-start justify-between border-b border-gray-200 pb-6">
+      <div className=" px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto max-w-[1280px] mx-auto py-4 px-4 sm:py-6 sm:px-6 lg:py-8">
+        <div className="mb-8 sm:mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between border-b border-gray-200 pb-4 sm:pb-6">
             <div>
-              <h1 className="text-2xl font-medium text-gray-900">Mening Profilim</h1>
+              <h1 className="text-xl sm:text-2xl font-medium text-gray-900">Mening Profilim</h1>
               <p className="mt-1 text-sm text-gray-500">
                 Ko'chmas mulkingizni boshqaring
               </p>
             </div>
             <button
               onClick={handleCreateProperty}
-              className="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+              className="mt-4 sm:mt-0 w-full sm:w-auto px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
             >
               Yangi E'lon
             </button>
           </div>
         </div>
 
-        {}
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-12">
-          <div className="p-6 border border-gray-200 rounded-lg">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <div className="p-4 sm:p-6 border border-gray-200 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Jami E'lonlar</div>
-            <div className="text-2xl font-medium">{properties.length}</div>
+            <div className="text-xl sm:text-2xl font-medium">{properties.length}</div>
           </div>
         </div>
 
-        {}
         <div className="mb-8">
-          <h2 className="text-xl font-medium text-gray-900 mb-6">Mening E'lonlarim</h2>
+          <h2 className="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-6">Mening E'lonlarim</h2>
           
           {loading ? (
             <div className="flex justify-center items-center h-40">
@@ -101,7 +98,7 @@ function Profile() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {properties.map((property) => (
                 <div 
                   key={property.id} 
@@ -133,7 +130,6 @@ function Profile() {
                         {'Faol'}
                       </span>
                     </div>
-                    {}
                     <p className="text-sm text-gray-500 mb-3 ">{property.address}</p>                    
                     <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
                       <div>
@@ -166,8 +162,8 @@ function Profile() {
           )}
         </div>
 
-        <div className="mt-12">
-          <h2 className="text-xl font-medium text-gray-900 mb-6">Chatlar</h2>
+        <div className="mt-8 sm:mt-12">
+          <h2 className="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-6">Chatlar</h2>
           <ChatList userId={user?.uid} />
         </div>
       </div>

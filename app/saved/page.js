@@ -46,7 +46,7 @@ export default function SavedProperties() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-white flex items-center justify-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto">
         <div className="text-center space-y-6">
           <h2 className="text-3xl font-light text-black">Saqlangan mulklarni ko'rish uchun tizimga kiring</h2>
           <a

@@ -79,7 +79,7 @@ export default function PropertyDetails() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-8 font-[Lekton] 2xl:px-0">
+    <div className="px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-8 font-[Lekton] 2xl:px-0">
       {}
       <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sm mb-4 md:mb-6">
         <div className="flex flex-col md:flex-row justify-between gap-4">
