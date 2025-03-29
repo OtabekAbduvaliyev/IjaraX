@@ -18,8 +18,6 @@ export default function ChatList({ userId }) {
       try {
         const { chats, error } = await getUserChats(userId);
         if (error) throw new Error(error);
-
-        // Fetch property details for each chat
         const chatsWithDetails = await Promise.all(
           chats.map(async (chat) => {
             const { property } = await getPropertyById(chat.propertyId);

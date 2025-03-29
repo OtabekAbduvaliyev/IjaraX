@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Image from 'next/image';
@@ -8,7 +7,6 @@ import { sendMessage, listenToMessages } from '../lib/chat';
 import { getUserInfo } from '../lib/user';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
-
 export default function ChatModal({ isOpen, onClose, propertyId, landlordId, propertyTitle }) {
   const { user } = useAuth();
   const [messages, setMessages] = useState([]);
@@ -16,19 +14,15 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState({});
   const messagesEndRef = useRef(null);
-
   useEffect(() => {
     if (!isOpen) return;
-
     const loadUserInfo = async () => {
       try {
         const [senderDoc, receiverDoc] = await Promise.all([
           getDoc(doc(db, 'users', user.uid)),
           getDoc(doc(db, 'users', landlordId))
         ]);
-
         const receiverData = receiverDoc.data();
-        
         setUsers({
           [user.uid]: {
             email: user.email,
@@ -43,29 +37,22 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
         console.error('Error loading user info:', error);
       }
     };
-
     loadUserInfo();
-
     const unsubscribe = listenToMessages(user.uid, landlordId, propertyId, (messages) => {
       setMessages(messages);
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, [isOpen, user?.uid, landlordId, propertyId]);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
-
     try {
       await sendMessage(user.uid, landlordId, propertyId, {
         text: newMessage,
@@ -77,21 +64,18 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
       console.error('Error sending message:', error);
     }
   };
-
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg w-full max-w-md md:max-w-xl lg:max-w-2xl h-[600px] flex flex-col">
-        {/* Header */}
+        {}
         <div className="p-4 border-b flex justify-between items-center">
           <h3 className="text-lg font-semibold">{propertyTitle}</h3>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
             <X className="h-5 w-5" />
           </button>
         </div>
-
-        {/* Messages */}
+        {}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {loading ? (
             <div className="flex justify-center items-center h-full">
@@ -151,8 +135,7 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
           )}
           <div ref={messagesEndRef} />
         </div>
-
-        {/* Input */}
+        {}
         <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
           <input
             type="text"

@@ -7,7 +7,7 @@ import Header from "./Header";
 export default function HeaderOrg (){
     const pathname = usePathname();
     return(<div>
-        {pathname !== "/auth" && <Header />}
+        {pathname !== "/auth" && pathname !== "/role-selection" && <Header />}
     </div>
     )
 }
