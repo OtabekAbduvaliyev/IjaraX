@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { getPropertiesByLandlord } from '../lib/properties';
 import { ProtectedRoute } from '../components/RouteProtection';
 import PropertyCard from '../components/PropertyCard';
+import ChatList from '../components/ChatList';
 
 function Profile() {
   const { user } = useAuth();
@@ -163,6 +164,11 @@ function Profile() {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="mt-12">
+          <h2 className="text-xl font-medium text-gray-900 mb-6">Chatlar</h2>
+          <ChatList userId={user?.uid} />
         </div>
       </div>
     </div>

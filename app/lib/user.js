@@ -24,3 +24,16 @@ export const getUserRole = async (userId) => {
     return { role: null, error: error.message };
   }
 };
+
+export const getUserInfo = async (userId) => {
+  try {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    if (userDoc.exists()) {
+      return userDoc.data();
+    }
+    return null;
+  } catch (error) {
+    console.error('Error getting user info:', error);
+    return null;
+  }
+};

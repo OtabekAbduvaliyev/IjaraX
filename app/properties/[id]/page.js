@@ -8,6 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 import { getPropertyById } from '../../lib/properties';
 import ImageModal from '../../components/ImageModal';
 import { X, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
+import ChatModal from '../../components/ChatModal';
 
 const LocationMap = dynamic(
   () => import('../../components/LocationMap'),
@@ -25,6 +26,8 @@ export default function PropertyDetails() {
   const [selectedImageType, setSelectedImageType] = useState('property');
   const [modalImage, setModalImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
+
   useEffect(() => {
     const checkMobileView = () => {
       setIsMobile(window.innerWidth < 768);
@@ -291,6 +294,12 @@ export default function PropertyDetails() {
                           </a>
                         </div>
                       )}
+                      <button
+                        onClick={() => setShowChatModal(true)}
+                        className="w-full bg-black text-white text-sm md:text-base px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-900 transition-colors mt-4"
+                      >
+                        Xabar Yozish
+                      </button>
                     </div>
                   </div>
                 ) : (
@@ -314,6 +323,16 @@ export default function PropertyDetails() {
                   Tizimga Kirish
                 </a>
               </div>
+            )}
+
+            {showChatModal && (
+              <ChatModal
+                isOpen={showChatModal}
+                onClose={() => setShowChatModal(false)}
+                propertyId={id}
+                landlordId={property.landlordId}
+                propertyTitle={property.name}
+              />
             )}
           </div>
         </div>
