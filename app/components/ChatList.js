@@ -40,9 +40,13 @@ export default function ChatList({ userId }) {
   }, [userId]);
 
   const handleChatClick = (chat) => {
+    // Extract propertyId from the chat.id (format: propertyId_user1_user2)
+    const propertyId = chat.propertyId;
+    const otherUserId = chat.participants.find(id => id !== userId);
+    
     setSelectedChat({
-      propertyId: chat.propertyId,
-      landlordId: chat.senderId === userId ? chat.receiverId : chat.senderId,
+      propertyId: propertyId,
+      landlordId: otherUserId,
       propertyTitle: chat.property?.name || 'Chat'
     });
   };
