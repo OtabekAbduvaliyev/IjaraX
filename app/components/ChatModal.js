@@ -5,17 +5,50 @@ import Image from 'next/image';
 import { Send, X } from 'lucide-react';
 import { sendMessage, listenToMessages } from '../lib/chat';
 import { getUserInfo } from '../lib/user';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/config';
+
 export default function ChatModal({ isOpen, onClose, propertyId, landlordId, propertyTitle }) {
   const { user } = useAuth();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState({});
+  const [hasAccess, setHasAccess] = useState(false);
+  const [accessChecked, setAccessChecked] = useState(false);
   const messagesEndRef = useRef(null);
+
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !user) return;
+
+    const checkAccess = async () => {
+      try {
+        if (user.uid === landlordId) {
+          setHasAccess(true);
+          setAccessChecked(true);
+          return;
+        }
+
+        const requestDoc = await getDoc(doc(db, 'requests', `${propertyId}_${user.uid}`));
+        if (requestDoc.exists() && requestDoc.data().status === 'pending') {
+          setHasAccess(true);
+        } else {
+          setHasAccess(false);
+        }
+        setAccessChecked(true);
+      } catch (error) {
+        console.error('Error checking access:', error);
+        setHasAccess(false);
+        setAccessChecked(true);
+      }
+    };
+
+    checkAccess();
+  }, [isOpen, user, landlordId, propertyId]);
+
+  useEffect(() => {
+    if (!isOpen || !hasAccess) return;
+
     const loadUserInfo = async () => {
       try {
         const [senderDoc, receiverDoc] = await Promise.all([
@@ -37,19 +70,25 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
         console.error('Error loading user info:', error);
       }
     };
+
     loadUserInfo();
+
     const unsubscribe = listenToMessages(user.uid, landlordId, propertyId, (messages) => {
       setMessages(messages);
       setLoading(false);
     });
+
     return () => unsubscribe();
-  }, [isOpen, user?.uid, landlordId, propertyId]);
+  }, [isOpen, user?.uid, landlordId, propertyId, hasAccess]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
@@ -64,18 +103,36 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
       console.error('Error sending message:', error);
     }
   };
+
   if (!isOpen) return null;
+
+  if (accessChecked && !hasAccess) {
+    return (
+      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-lg p-6 w-full max-w-md">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">Xatolik</h3>
+            <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <p className="text-gray-600">
+            Siz ushbu mulk egasi bilan suhbatlashish huquqiga ega emassiz. Iltimos, avval mulkni ijaraga olish so'rovini yuboring.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg w-full max-w-md md:max-w-xl lg:max-w-2xl h-[600px] flex flex-col">
-        {}
         <div className="p-4 border-b flex justify-between items-center">
           <h3 className="text-lg font-semibold">{propertyTitle}</h3>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
             <X className="h-5 w-5" />
           </button>
         </div>
-        {}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {loading ? (
             <div className="flex justify-center items-center h-full">
@@ -135,7 +192,6 @@ export default function ChatModal({ isOpen, onClose, propertyId, landlordId, pro
           )}
           <div ref={messagesEndRef} />
         </div>
-        {}
         <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
           <input
             type="text"
