@@ -8,8 +8,8 @@ export function middleware(request) {
 
     // List of allowed bots (SEO + Open Graph)
     const allowedBots = [
-        "googlebot", "bingbot", "yandexbot", "duckduckbot", "baiduspider", // Search Engines
-        "facebookexternalhit", "twitterbot", "linkedinbot", "slurp", // Social Media (OG)
+        "googlebot", "bingbot", "yandexbot", "duckduckbot", "baiduspider",
+        "facebookexternalhit", "twitterbot", "linkedinbot", "slurp",
         "discordbot", "whatsapp", "telegrambot", "pinterest", "redditbot"
     ];
 
@@ -17,32 +17,27 @@ export function middleware(request) {
     const isBot = allowedBots.some(keyword => userAgent.toLowerCase().includes(keyword));
 
     if (isBot || path.startsWith("/images/")) {
-        console.log("Allowed bot or image request detected:", userAgent);
-        return NextResponse.next(); // Allow bots and image requests
+        return NextResponse.next();
     }
 
     // Get the token from the cookies
     const isAuthenticated = request.cookies.has('user-token');
 
     // Define public paths that don't require authentication
-    const publicPaths = ['/auth'];
-    const isPublicPath = publicPaths.includes(path);
+    const publicPaths = ['/','/auth'];
+    const isPublicPath = publicPaths.some(publicPath => path === publicPath);
 
     // Redirect logic
     if (!isAuthenticated && !isPublicPath) {
         return NextResponse.redirect(new URL('/auth', request.url));
     }
 
-    if (isAuthenticated && isPublicPath) {
-        return NextResponse.redirect(new URL('/', request.url));
-    }
-
     return NextResponse.next();
 }
 
-// Matching Paths
+// Matching Paths - protect everything except static files
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|favicon.ico|images/).*)', // Exclude /images/
+        '/((?!api|_next/static|_next/image|favicon.ico|images/).*)',
     ],
 };

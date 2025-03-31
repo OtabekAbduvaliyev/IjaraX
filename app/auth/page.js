@@ -48,7 +48,7 @@ export default function AuthPage() {
           if (roleError) throw new Error(roleError);
 
           if (role) {
-            router.push('/'); //agar userni roli mavjud bo'lsa, home pagega jonatvoradi
+            router.push('/all'); //agar userni roli mavjud bo'lsa, home pagega jonatvoradi
           } else {
             router.push('/role-selection');
           }
@@ -75,7 +75,7 @@ export default function AuthPage() {
         if (roleError) throw new Error(roleError);
 
         if (role) {
-          router.push('/');
+          router.push('/all');
         } else {
           router.push('/role-selection');
         }
