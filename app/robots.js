@@ -6,6 +6,6 @@ export default function robots() {
           allow: '/',
         },
       ],
-      sitemap: 'https://ijara-x.vercel.app/sitemap.xml',
+      sitemap: 'https://ijarax.uz/sitemap.xml',
     };
   }

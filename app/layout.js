@@ -21,11 +21,11 @@ export const metadata = {
   openGraph: {
     title: "IjaraX - Eng muqobil ijaralar",
     description: "IjaraX sizga O'zbekistondagi eng yaxshi ijaralarini topishda yordam beradi.",
-    url: "https://ijara-x.vercel.app/",
+    url: "https://ijarax.uz/",
     siteName: "IjaraX",
     images: [
       {
-        url: "https://ijara-x.vercel.app/og-image.jpg",
+        url: "https://ijarax.uz/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "IjaraX - Eng muqobil ijaralar",
@@ -37,7 +37,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "IjaraX - Eng muqobil ijaralar",
     description: "IjaraX sizga O'zbekistondagi eng yaxshi ijaralarini topishda yordam beradi.",
-    images: [{url:"https://ijara-x.vercel.app/og-image.jpg"}],
+    images: [{url:"https://ijarax.uz/og-image.jpg"}],
   },
   robots: {
     index: true,

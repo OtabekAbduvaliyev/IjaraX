@@ -2,7 +2,7 @@ export async function generateMetadata({ params }) {
     const { id } = params;
 
     try {
-        const res = await fetch(`https://ijara-x.vercel.app/api/metadata/${id}`, {
+        const res = await fetch(`https://ijarax.uz/api/metadata/${id}`, {
             next: { revalidate: 60 },
         });
         const metadata = await res.json();
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }) {
             openGraph: {
                 title: "IjaraX | Find Your Next Rental",
                 description: "Discover the best properties on IjaraX.",
-                images: [{ url: "https://ijara-x.vercel.app/default-property.webp" }],
+                images: [{ url: "https://ijarax.uz/default-property.webp" }],
             },
         };
     }

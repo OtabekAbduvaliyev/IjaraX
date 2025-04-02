@@ -1,7 +1,7 @@
 import { getAllProperties } from "./lib/properties"; 
 
 export default async function sitemap() {
-    const baseUrl = "https://ijara-x.vercel.app";
+    const baseUrl = "https://ijarax.uz";
     
     const properties = await getAllProperties();
 

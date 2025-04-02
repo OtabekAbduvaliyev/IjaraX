@@ -4,13 +4,13 @@ export const metadata = {
     openGraph: {
         title: "Auth | IjaraX",
         description: "Ijara X platformasi uchun ro'yxatdan o'ting !",
-        images: [{ url: "https://ijara-x.vercel.app/default-property.webp" }],
+        images: [{ url: "https://ijarax.uz/default-property.webp" }],
     },
     twitter: {
         card: "summary_large_image",
         title: "Auth | IjaraX",
         description: "Ijara X platformasi uchun ro'yxatdan o'ting !",
-        images: [{ url: "https://ijara-x.vercel.app/default-property.webp" }],
+        images: [{ url: "https://ijarax.uz/default-property.webp" }],
     },
   };
   

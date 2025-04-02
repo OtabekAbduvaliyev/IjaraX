@@ -10,8 +10,8 @@ export async function GET(req, { params }) {
             return new Response(JSON.stringify({
                 title: "Property Not Found | IjaraX",
                 description: "The requested property does not exist.",
-                image: "https://ijara-x.vercel.app/default-property.webp",
-                url: `https://ijara-x.vercel.app/properties/${id}`,
+                image: "https://ijarax.uz/default-property.webp",
+                url: `https://ijarax.uz/properties/${id}`,
                 type: "website"
             }), { 
                 status: 404,
@@ -30,8 +30,8 @@ export async function GET(req, { params }) {
         return new Response(JSON.stringify({
             title: `${property.name} | IjaraX`,
             description,
-            image: property.images?.[0] || "https://ijara-x.vercel.app/default-property.webp",
-            url: `https://ijara-x.vercel.app/properties/${id}`,
+            image: property.images?.[0] || "https://ijarax.uz/default-property.webp",
+            url: `https://ijarax.uz/properties/${id}`,
             type: "article",
             price: property.price,
             location: property.location,
@@ -48,8 +48,8 @@ export async function GET(req, { params }) {
         return new Response(JSON.stringify({
             title: "Error | IjaraX",
             description: "Something went wrong while fetching this property.",
-            image: "https://ijara-x.vercel.app/default-property.webp",
-            url: `https://ijara-x.vercel.app/properties/${id}`,
+            image: "https://ijarax.uz/default-property.webp",
+            url: `https://ijarax.uz/properties/${id}`,
             type: "website"
         }), { 
             status: 500,
