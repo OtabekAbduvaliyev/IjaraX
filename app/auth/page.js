@@ -93,19 +93,19 @@ export default function AuthPage() {
         {/* Image Section */}
         <div className="hidden lg:block lg:w-1/2 xl:w-3/5">
           {!isLogin ? (
-            <Image 
-              src="/images/signup.jpg" 
-              alt="Sign Up" 
-              width={700} 
-              height={500} 
+            <Image
+              src="/images/signup.jpg"
+              alt="Sign Up"
+              width={700}
+              height={500}
               className="object-cover rounded-2xl"
             />
           ) : (
-            <Image 
-              src="/images/signin.png" 
-              alt="Sign In" 
-              width={700} 
-              height={500} 
+            <Image
+              src="/images/signin.png"
+              alt="Sign In"
+              width={700}
+              height={500}
               className="object-cover rounded-2xl"
             />
           )}
@@ -120,11 +120,14 @@ export default function AuthPage() {
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               <span className="block sm:inline">
+                {error === 'Firebase: Error (auth/invalid-credential).' && 'Foydalanuvchi topilmadi'}
                 {error === 'Firebase: Error (auth/invalid-email).' && 'Email noto\'g\'ri formatda kiritildi'}
                 {error === 'Firebase: Error (auth/user-not-found).' && 'Foydalanuvchi topilmadi'}
                 {error === 'Firebase: Error (auth/wrong-password).' && 'Parol noto\'g\'ri'}
                 {error === 'Firebase: Error (auth/email-already-in-use).' && 'Bu email allaqachon ro\'yxatdan o\'tgan'}
-                {error === 'Firebase: Error (auth/weak-password).' && 'Parol kamida 6 ta belgidan iborat bo\'lishi kerak'}
+                {error === 'Firebase: Password should be at least 6 characters (auth/weak-password).' && 'Parol kamida 6 ta belgidan iborat bo\'lishi kerak'}
+                {console.log(error)
+                }
                 {!error.includes('Firebase') && error}
               </span>
             </div>
@@ -183,8 +186,11 @@ export default function AuthPage() {
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
-                className="w-full py-2.5 px-4 border border-gray-200 rounded-lg flex items-center justify-center gap-3 hover:bg-zinc-900 hover:text-white transition-colors"
+                className="w-full py-2.5 px-4 border border-gray-200 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors relative"
               >
+                <div className="absolute -top-2 right-2 bg-black text-white text-xs px-2 py-0.5 rounded-full text-center whitespace-nowrap">
+                  Tavsiya etiladi
+                </div>
                 <FaGoogle className="w-5 h-5" />
                 <span>Google orqali davom eting</span>
               </button>
