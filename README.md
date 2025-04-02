@@ -1,7 +1,3 @@
-Mana, IjaraX platformasi uchun tushunarli va kengroq README fayli, o'zbek tilida:
-
----
-
 # 🏠 IjaraX - Onlayn Ijara Platformasi
 
 **IjaraX** - bu O'zbekistondagi eng qulay va tezkor ijara platformasi. Foydalanuvchilar uy, ofis, va boshqa ko‘chmas mulklarni ijaraga berish yoki topishlari mumkin.
