@@ -298,7 +298,7 @@ export default function Home() {
                 Bizning platformada e'loningizni joylashtiring va minglab potensial mijozlarga yeting. Tez, oson va ishonchli!
               </p>
               <button
-                onClick={() => router.push('/add-listing')}
+                onClick={() => router.push('/profile')}
                 className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 bg-white text-black rounded-md hover:bg-gray-200 transition-all font-medium text-sm sm:text-base"
               >
                 E'lon joylashtirish
