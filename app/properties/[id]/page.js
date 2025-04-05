@@ -9,6 +9,7 @@ import { getPropertyById } from '../../lib/properties';
 import ImageModal from '../../components/ImageModal';
 import { X, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
 import ChatModal from '../../components/ChatModal';
+import { useRouter } from 'next/navigation';
 
 const LocationMap = dynamic(
   () => import('../../components/LocationMap'),
@@ -27,7 +28,7 @@ export default function PropertyDetails() {
   const [modalImage, setModalImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showChatModal, setShowChatModal] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const checkMobileView = () => {
       setIsMobile(window.innerWidth < 768);
@@ -295,7 +296,7 @@ export default function PropertyDetails() {
                         </div>
                       )}
                       <button
-                        onClick={() => setShowChatModal(true)}
+                        onClick={() => !user ? router.push('/auth') : setShowChatModal(true)}
                         className="w-full bg-black text-white text-sm md:text-base px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-900 transition-colors mt-4"
                       >
                         Xabar Yozish

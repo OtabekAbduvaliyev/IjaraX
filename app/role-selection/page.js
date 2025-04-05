@@ -22,7 +22,7 @@ export default function RoleSelection() {
       const { error } = await setUserRole(user.uid, role);
       if (error) throw new Error(error);
       
-      router.push('/all');
+      router.push('/');
     } catch (err) {
       setError(err.message);
     } finally {

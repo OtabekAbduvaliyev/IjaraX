@@ -69,10 +69,14 @@ function Profile() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-8 sm:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
           <div className="p-4 sm:p-6 border border-gray-200 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Jami E'lonlar</div>
             <div className="text-xl sm:text-2xl font-medium">{properties.length}</div>
+          </div>
+          <div className="p-4 sm:p-6 border border-gray-200 rounded-lg">
+            <div className="text-sm text-gray-500 mb-1">Email</div>
+            <div className="text-xl sm:text-2xl font-medium">{user?.email || 'No email'}</div>
           </div>
         </div>
 

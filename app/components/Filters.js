@@ -208,7 +208,7 @@ export default function Filters({ onFilterChange }) {
           {/* Desktop Clear Button */}
           <div className="hidden lg:block">
             <button 
-              className="w-full py-2 bg-white text-zinc-800 text-sm font-medium border border-zinc-300 rounded-md hover:bg-zinc-50"
+              className="w-full py-2 bg-zinc-800 text-zinc-100 text-sm font-medium border border-zinc-300 rounded-md hover:bg-[#171717]"
               onClick={clearFilters}
             >
               Barcha filtrlarni o'chirish

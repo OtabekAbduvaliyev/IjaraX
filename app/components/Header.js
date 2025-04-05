@@ -62,7 +62,7 @@ export default function Header() {
     {
       key: '1',
       label: (
-        <Link href={'/all'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
+        <Link href={'/'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
       ),
     },
     {
@@ -88,11 +88,11 @@ export default function Header() {
   return (
     <header className='lekton mt-[] flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>
       <div className="logo">
-        <Link href='/all'> <h1 className='text-[36px] font-bold'>IjaraX</h1> </Link>
+        <Link href='/'> <h1 className='text-[36px] font-bold'>IjaraX</h1> </Link>
       </div>
       <div className="right-side flex items-center gap-[25px]">
         <div className="hidden lg:flex links  gap-[10px] ">
-          <Link href={'/all'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
+          <Link href={'/'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
           <Link href={'/saved'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><CiHeart className='text-[18px]'/>Yoqtirilganlar</Link>
           {userRole == "landlord" && (<Link href={'/properties/new'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoKeyOutline className='text-[18px]'/>Ijara joylash</Link>)}
           <Link href={'/chats'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoChatbubbleOutline className='text-[18px]'/>Chatlar</Link>
