@@ -94,7 +94,7 @@ export default function Header() {
         <div className="hidden lg:flex links  gap-[10px] ">
           <Link href={'/'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><GoHome className='text-[18px]'/>Bosh sahifa</Link>
           <Link href={'/saved'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><CiHeart className='text-[18px]'/>Yoqtirilganlar</Link>
-          {userRole == "landlord" && (<Link href={'/properties/new'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoKeyOutline className='text-[18px]'/>Ijara joylash</Link>)}
+          {(<Link href={'/properties/new'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoKeyOutline className='text-[18px]'/>Ijara joylash</Link>)}
           <Link href={'/chats'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><IoChatbubbleOutline className='text-[18px]'/>Chatlar</Link>
         </div>
         <div className="account-menu lg:hidden">
