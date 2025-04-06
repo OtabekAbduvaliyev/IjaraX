@@ -28,7 +28,9 @@ export default function PropertyDetails() {
   const [modalImage, setModalImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showChatModal, setShowChatModal] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     const checkMobileView = () => {
       setIsMobile(window.innerWidth < 768);
@@ -54,6 +56,11 @@ export default function PropertyDetails() {
 
     fetchProperty();
   }, [id]);
+
+  const truncateDescription = (text, maxLength = 150) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + '...';
+  };
 
   if (loading) {
     return (
@@ -173,9 +180,21 @@ export default function PropertyDetails() {
             <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3">
               Mulk Tavsifi
             </h2>
-            <p className="text-sm md:text-base text-gray-600 whitespace-pre-line">
-              {property.description}
-            </p>
+            <div className="space-y-2">
+              <p className="text-sm md:text-base text-gray-600 whitespace-pre-line">
+                {isDescriptionExpanded 
+                  ? property.description 
+                  : truncateDescription(property.description)}
+              </p>
+              {property.description.length > 150 && (
+                <button
+                  onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                  className="text-black hover:underline text-sm font-medium"
+                >
+                  {isDescriptionExpanded ? "Kamroq ko'rsatish" : "Ko'proq ko'rsatish"}
+                </button>
+              )}
+            </div>
           </div>
 
           {}
