@@ -96,8 +96,8 @@ export default function Hero() {
   };
 
   return (
-    <div className='lekton px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto md:py-[30px]'>
-      <div className="pt-8">
+    <div className='lekton px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto md:py-[50px]'>
+      <div className="">
         <h1 className='text-2xl md:text-3xl font-bold'>IjaraX platformasi -</h1>
         <h2 className='text-xl md:text-2xl mt-2'>orqali barcha viloyatlardan o'zingizga mos ijaralarni toping !</h2>
       </div>
@@ -129,7 +129,7 @@ export default function Hero() {
           )}
         </div>
 
-        <div className="hidden lg:flex flex-col items-center gap-3 pt-4">
+        <div className="hidden lg:flex flex-col items-center gap-3 justify-center ">
           <button 
             onClick={prevProperties} 
             disabled={startIndex === 0} 
@@ -140,7 +140,7 @@ export default function Hero() {
           
           <div className="text-sm font-medium">
             <div>{calculatePageNumbers().currentPage}</div>
-            <div className="text-zinc-400">/</div>
+            <div className="text-zinc-400">-</div>
             <div>{calculatePageNumbers().totalPages}</div>
           </div>
 
@@ -153,7 +153,7 @@ export default function Hero() {
           </button>
         </div>
 
-        <div className="lg:hidden flex justify-center items-center gap-4 mt-6">
+        <div className="lg:hidden flex justify-center items-center gap-4 mt-6 ">
           <button 
             onClick={prevProperties} 
             disabled={startIndex === 0} 

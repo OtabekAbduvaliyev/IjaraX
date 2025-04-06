@@ -259,7 +259,6 @@ export default function PropertyDetails() {
 
           {}
           <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sm">
-            {user ? (
               <div>
                 {showContact ? (
                   <div className="space-y-3 md:space-y-4">
@@ -312,19 +311,7 @@ export default function PropertyDetails() {
                   </button>
                 )}
               </div>
-            ) : (
-              <div className="text-center">
-                <p className="text-xs md:text-sm text-gray-600 mb-3">
-                  Aloqa ma'lumotlarini ko'rish uchun tizimga kiring
-                </p>
-                <a
-                  href="/auth"
-                  className="inline-block text-sm md:text-base bg-black text-white px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-900 transition-colors"
-                >
-                  Tizimga Kirish
-                </a>
-              </div>
-            )}
+            {}
 
             {showChatModal && (
               <ChatModal

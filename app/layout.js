@@ -11,6 +11,7 @@ const lekton = Lekton({
 
 
 import HeaderOrg from "./components/HeaderProtector";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,7 +54,9 @@ export default function RootLayout({ children }) {
       <body className={lekton.className}>
         <AuthProvider>
          <HeaderOrg />
-          {children}</AuthProvider>
+          {children}
+          <Footer />
+          </AuthProvider>
       </body>
     </html>
   );

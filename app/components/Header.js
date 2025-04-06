@@ -45,7 +45,7 @@ export default function Header() {
         </div>
       ),
       extra: '⌘P',
-      hidden:!userRole == "landlord" || userRole == 'renter'
+      // hidden:!userRole == "landlord" || userRole == 'renter'
     },
     {
       key: '3',
