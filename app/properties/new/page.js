@@ -327,6 +327,7 @@ export default function CreatePropertyForm() {
                 <option value="monthly">Oylik</option>
                 <option value="daily">Kunlik</option>
                 <option value="yearly">Yillik</option>
+                <option value="yearly">Sotuvga</option>
               </select>
             </div>
 
