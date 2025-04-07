@@ -84,6 +84,7 @@ export default function Header() {
       ),
     },
   ];
+console.log(user);
 
   return (
     <header className='lekton mt-[] flex items-center px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto justify-between py-[23px] border-b'>

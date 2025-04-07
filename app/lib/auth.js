@@ -13,6 +13,7 @@ const setAuthCookie = async (user) => {
   const token = await user.getIdToken();
   // Set cookie with token
   Cookies.set('user-token', token, {
+    httpOnly: true,
     expires: 7, // 7 days
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax'
