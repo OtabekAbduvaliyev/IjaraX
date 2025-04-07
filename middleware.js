@@ -24,9 +24,9 @@ export function middleware(request) {
     const isAuthenticated = request.cookies.has('user-token');
 
     // Define public paths that don't require authentication
-    const publicPaths = ['/','/auth','/properties/[id]','/welcome'];
+    const publicPaths = ['/','/auth','/welcome'];
     const isPublicPath = publicPaths.some(publicPath => path === publicPath) || 
-    path.match(/^\/properties\/[^\/]+$/); // Matches /properties/123 or any ID
+        (path.match(/^\/properties\/[^\/]+$/) && !path.endsWith('/new')); // Allow /properties/:id but not /properties/new
 
     // Redirect logic
     if (!isAuthenticated && !isPublicPath) {
