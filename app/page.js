@@ -94,7 +94,15 @@ export default function Hero() {
     const currentPage = Math.floor(startIndex / 3) + 1;
     return { totalPages, currentPage };
   };
-
+// reload the current page
+// window.location.reload();
+useEffect(() => {
+  // Faqat bir marta refresh qilish (agar kerak bo'lsa)
+  if (!sessionStorage.getItem("refreshed")) {
+    sessionStorage.setItem("refreshed", "true");
+    window.location.reload();
+  }
+}, []);
   return (
     <div className='lekton px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto py-[30px] md:py-[50px]'>
       <div className="">
