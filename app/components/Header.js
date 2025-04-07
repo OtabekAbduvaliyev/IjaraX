@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import { signOut } from '../lib/auth';
 import { GoHome } from "react-icons/go";
-import { CiHeart } from "react-icons/ci";
+import { CiHeart, CiLogin } from "react-icons/ci";
 import { IoKeyOutline } from "react-icons/io5";
 import { Dropdown, Space } from 'antd';
 import { FaRegUser } from "react-icons/fa";
@@ -84,6 +84,21 @@ export default function Header() {
       ),
     },
   ];
+  
+  const items3 = [
+    {
+      key: '1',
+      label: (
+        <Link href={'/auth'}  className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px] hover:bg-[#171717] hover:text-white duration-100'><CiLogin className='text-[18px]'/>Ro'yxatdan o'tish</Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link href={'/auth'} className='flex items-center gap-[7px] border-1 rounded-[10px] px-[16px] py-[3px]  hover:bg-[#171717] hover:text-white duration-100'><FaRegUser className='text-[14px]'/>Kirish</Link>
+      ),
+    },
+  ];
 console.log(user);
 
   return (
@@ -126,7 +141,7 @@ console.log(user);
           <Dropdown
             trigger={'click'}
             menu={{
-              items:items1
+              items:user ? items1 : items3
             }}
           >
             <button className='rounded-[50%] hover:bg-[#171717] hover:text-white font-bold text-black py-[5px] px-[5px] cursor-pointer border'><CiUser className='text-[20px]'/></button>

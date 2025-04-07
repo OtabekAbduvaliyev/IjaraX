@@ -24,14 +24,14 @@ export function middleware(request) {
     const isAuthenticated = request.cookies.has('user-token');
 
     // Define public paths that don't require authentication
-    const publicPaths = ['/','/auth','/welcome'];
+    const publicPaths = ['/','/auth','/properties/[id]','/welcome'];
     const isPublicPath = publicPaths.some(publicPath => path === publicPath) || 
-        (path.match(/^\/properties\/[^\/]+$/) && !path.endsWith('/new')); // Allow /properties/:id but not /properties/new
+    path.match(/^\/properties\/[^\/]+$/); // Matches /properties/123 or any ID
 
     // Redirect logic
-    if (!isAuthenticated && !isPublicPath) {
-        return NextResponse.redirect(new URL('/auth', request.url));
-    }
+    // if (!isAuthenticated && !isPublicPath) {
+    //     return NextResponse.redirect(new URL('/auth', request.url));
+    // }
 
     return NextResponse.next();
 }

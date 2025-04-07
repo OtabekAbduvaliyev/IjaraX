@@ -9,6 +9,7 @@ import { ProtectedRoute } from '../../components/RouteProtection';
 import { createProperty } from '../../lib/properties';
 import { useAuth } from '../../context/AuthContext';
 import { Plus, X, FileText, FileImage } from 'lucide-react';
+import Link from 'next/link';
 
 // Dynamically import LocationMap to avoid SSR issues
 const LocationMap = dynamic(
@@ -554,13 +555,20 @@ export default function CreatePropertyForm() {
 
           {/* Submit Button */}
           <div className="text-start md:text-end">
-            <button
+            {user ? (<button
               type="submit"
               disabled={loading}
               className="px-8 py-3 bg-[#171717] text-white rounded-md hover:bg-[#181818] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50"
             >
               {loading ? 'Mulk yaratilmoqda...' : 'Mulk E\'lonini Yaratish'}
-            </button>
+            </button>) : (
+            <Link
+            href={'/auth'}
+              disabled={loading}
+              className="px-8 py-3 bg-[#171717] text-white rounded-md hover:bg-[#181818] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50"
+            >
+              Mulkni yaratish uchun royxatdan o'ting
+            </Link>)}
           </div>
         </form>
       </div>
