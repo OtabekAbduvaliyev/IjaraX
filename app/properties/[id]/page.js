@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useAuth } from '../../context/AuthContext';
-import { getPropertyById } from '../../lib/properties';
+import { getPropertyById, getRecommendedProperties } from '../../lib/properties';
 import ImageModal from '../../components/ImageModal';
 import { X, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
 import ChatModal from '../../components/ChatModal';
@@ -29,6 +29,8 @@ export default function PropertyDetails() {
   const [isMobile, setIsMobile] = useState(false);
   const [showChatModal, setShowChatModal] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [recommendedProperties, setRecommendedProperties] = useState([]);
+  const [loadingRecommendations, setLoadingRecommendations] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -56,6 +58,23 @@ export default function PropertyDetails() {
 
     fetchProperty();
   }, [id]);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const { properties } = await getRecommendedProperties(user?.uid, 4);
+        setRecommendedProperties(properties.filter(p => p.id !== id));
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+      } finally {
+        setLoadingRecommendations(false);
+      }
+    };
+
+    if (property) {
+      fetchRecommendations();
+    }
+  }, [property, user, id]);
 
   const truncateDescription = (text, maxLength = 150) => {
     if (text.length <= maxLength) return text;
@@ -202,16 +221,38 @@ export default function PropertyDetails() {
             <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3">
               Joylashuv
             </h2>
-            <div className="h-[250px] sm:h-[300px] w-full rounded-xl overflow-hidden mb-3">
-              <LocationMap
-                center={{ lat: property.location.lat, lng: property.location.lng }}
-                marker={{ lat: property.location.lat, lng: property.location.lng }}
-                zoom={15}
-              />
+            {property.location.lat && property.location.lng ? (
+              <div className="h-[250px] sm:h-[300px] w-full rounded-xl overflow-hidden mb-3">
+                <LocationMap
+                  center={{ lat: property.location.lat, lng: property.location.lng }}
+                  marker={{ lat: property.location.lat, lng: property.location.lng }}
+                  zoom={15}
+                />
+              </div>
+            ) : (
+              <div className="h-[250px] sm:h-[300px] w-full rounded-xl bg-gray-50 flex flex-col items-center justify-center mb-3">
+                <div className="text-center px-6">
+                  <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <p className="text-lg md:text-xl font-medium text-gray-900 mb-2">
+                    {property.address || property.location.city}
+                  </p>
+                  <p className="text-sm md:text-base text-gray-500">
+                    {property.address}
+                  </p>
+                </div>
+              </div>
+            )}
+            <div className="space-y-1">
+              <p className="text-sm md:text-base font-medium text-gray-900">
+                {property.location.district || property.location.city}
+              </p>
+              <p className="text-xs md:text-sm text-gray-500">
+                {property.location.exactLocation}
+              </p>
             </div>
-            <p className="text-xs md:text-sm text-gray-500">
-              {property.location.exactLocation || property.location.city}
-            </p>
           </div>
         </div>
 
@@ -377,6 +418,40 @@ export default function PropertyDetails() {
                     To'liq Ko'rish
                   </span>
                 </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {}
+      {recommendedProperties.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">Tavsiya etilgan mulklar</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {recommendedProperties.map((prop) => (
+              <div 
+                key={prop.id} 
+                onClick={() => router.push(`/properties/${prop.id}`)}
+                className="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+              >
+                <div className="relative h-48">
+                  <Image
+                    src={prop.images[0]}
+                    alt={prop.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg mb-1">{prop.name}</h3>
+                  <div className="space-y-1 mb-2">
+                    <p className="text-gray-900 text-sm">{prop.location.district || prop.location.city}</p>
+                    <p className="text-gray-500 text-xs line-clamp-1">{prop.location.exactLocation}</p>
+                  </div>
+                  <p className="font-bold">{Number(prop.price).toLocaleString()} UZS</p>
+                </div>
               </div>
             ))}
           </div>

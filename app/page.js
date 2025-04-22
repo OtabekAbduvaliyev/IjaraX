@@ -126,8 +126,8 @@ export default function Hero() {
             <div className="relative">
               <div 
                 ref={scrollContainerRef}
-                className="h-[600px] lg:h-auto overflow-y-auto scrollbar-hide pr-4"
-                style={{ height: window.innerWidth >= 1024 ? `${filterHeight}px` : '' }}
+                className="h-auto lg:h-[600px] overflow-visible lg:overflow-y-auto scrollbar-hide pr-4"
+                style={{ height: window.innerWidth >= 1024 ? `${filterHeight}px` : 'auto' }}
               >
                 <div className="grid grid-cols-1 gap-6">
                   {properties.map((property) => (

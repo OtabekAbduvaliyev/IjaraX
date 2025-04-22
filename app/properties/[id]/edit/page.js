@@ -43,8 +43,6 @@ const cityCoordinates = {
   'Termez': { lat: 37.2242, lng: 67.2783 }
 };
 
-
-
 function EditProperty() {
   const router = useRouter();
   const params = useParams();
@@ -55,6 +53,8 @@ function EditProperty() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [location, setLocation] = useState({ lat: 41.2995, lng: 69.2401 });
   const [address, setAddress] = useState('');
+  const [manualAddress, setManualAddress] = useState('');
+  const [useManualAddress, setUseManualAddress] = useState(false);
   const [images, setImages] = useState([]);
   const [licenseImages, setLicenseImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -162,6 +162,8 @@ function EditProperty() {
         });
         setLocation(property.location);
         setAddress(property.address || '');
+        setManualAddress(property.address || '');
+        setUseManualAddress(!property.location.lat || !property.location.lng);
         setExistingImages(property.images || []);
         setExistingLicenseImages(property.licenseImages || []);
         setLoading(false);
@@ -196,8 +198,8 @@ function EditProperty() {
       const propertyData = {
         ...formData,
         landlordId: user.uid,
-        location,
-        address
+        location: useManualAddress ? { lat: null, lng: null } : location,
+        address: useManualAddress ? manualAddress : address
       };
 
       const { success, error } = await updateProperty(
@@ -499,23 +501,52 @@ function EditProperty() {
               </div>
             </div>
 
-            {}
+            {/* Location Section */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Joylashuv
               </h3>
-              <div className="h-96 w-full border rounded-md overflow-hidden">
-                <LocationMap
-                  center={location}
-                  zoom={13}
-                  marker={location}
-                  onLocationSelect={handleLocationSelect}
-                />
+              
+              <div className="mb-4">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={useManualAddress}
+                    onChange={(e) => setUseManualAddress(e.target.checked)}
+                    className="form-checkbox h-4 w-4 text-blue-600"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">
+                    Manzilni qo'lda kiritish
+                  </span>
+                </label>
               </div>
-              {address && (
-                <p className="mt-2 text-sm text-gray-500">
-                  Tanlangan manzil: {address}
-                </p>
+
+              {useManualAddress ? (
+                <div className="mb-4">
+                  <input
+                    type="text"
+                    value={manualAddress}
+                    onChange={(e) => setManualAddress(e.target.value)}
+                    placeholder="Manzilni kiriting"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="h-96 w-full border rounded-md overflow-hidden">
+                    <LocationMap
+                      center={location}
+                      zoom={13}
+                      marker={location}
+                      onLocationSelect={handleLocationSelect}
+                    />
+                  </div>
+                  {address && (
+                    <p className="mt-2 text-sm text-gray-500">
+                      Tanlangan manzil: {address}
+                    </p>
+                  )}
+                </>
               )}
             </div>
 

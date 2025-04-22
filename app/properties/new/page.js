@@ -45,6 +45,8 @@ export default function CreatePropertyForm() {
   const [error, setError] = useState('');
   const [location, setLocation] = useState(cityCoordinates['Toshkent']);
   const [address, setAddress] = useState('');
+  const [manualAddress, setManualAddress] = useState('');
+  const [useManualAddress, setUseManualAddress] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     place: 'Toshkent',
@@ -179,7 +181,7 @@ export default function CreatePropertyForm() {
           lat: location.lat,
           lng: location.lng
         },
-        address
+        address: useManualAddress ? manualAddress : address
       };
 
       const { success, propertyId, error } = await createProperty(
@@ -199,7 +201,9 @@ export default function CreatePropertyForm() {
       setLoading(false);
     }
   };
-
+if (!user) {
+  router.push('/auth')
+}
   return (
     <div className=" px-[25px] max-w-md md:max-w-2xl xl:px-[0px] lg:max-w-5xl 2xl:max-w-7xl mx-auto w-full max-w-7xl mx-auto px-[25px] xl:px-0 py-8 lekton">
       <div className="space-y-8">
@@ -402,18 +406,47 @@ export default function CreatePropertyForm() {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Joylashuv
             </h3>
-            <div className="h-96 w-full border rounded-md overflow-hidden">
-              <LocationMap
-                center={location}
-                zoom={13}
-                marker={location}
-                onLocationSelect={handleLocationSelect}
-              />
+            
+            <div className="mb-4">
+              <label className="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  checked={useManualAddress}
+                  onChange={(e) => setUseManualAddress(e.target.checked)}
+                  className="form-checkbox h-4 w-4 text-blue-600"
+                />
+                <span className="ml-2 text-sm text-gray-700">
+                  Manzilni qo'lda kiritish
+                </span>
+              </label>
             </div>
-            {address && (
-              <p className="mt-2 text-sm text-gray-500">
-                Tanlangan manzil: {address}
-              </p>
+
+            {useManualAddress ? (
+              <div className="mb-4">
+                <input
+                  type="text"
+                  value={manualAddress}
+                  onChange={(e) => setManualAddress(e.target.value)}
+                  placeholder="Manzilni kiriting"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            ) : (
+              <>
+                <div className="h-96 w-full border rounded-md overflow-hidden">
+                  <LocationMap
+                    center={location}
+                    zoom={13}
+                    marker={location}
+                    onLocationSelect={handleLocationSelect}
+                  />
+                </div>
+                {address && (
+                  <p className="mt-2 text-sm text-gray-500">
+                    Tanlangan manzil: {address}
+                  </p>
+                )}
+              </>
             )}
           </div>
 

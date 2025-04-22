@@ -212,6 +212,32 @@ export const deleteProperty = async (propertyId) => {
   }
 };
 
+export const getRecommendedProperties = async (userId, limit = 5) => {
+  try {
+    // Get all properties
+    const propertiesRef = collection(db, 'properties');
+    const querySnapshot = await getDocs(propertiesRef);
+    
+    // Convert to array and shuffle for random recommendations
+    const properties = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    // Simple shuffle algorithm
+    const shuffled = properties.sort(() => 0.5 - Math.random());
+    
+    // Return limited number of properties
+    return { 
+      properties: shuffled.slice(0, limit), 
+      error: null 
+    };
+  } catch (error) {
+    console.error('Error getting recommended properties:', error);
+    return { properties: [], error: error.message };
+  }
+};
+
 export const updateProperty = async (propertyId, propertyData, newImages = [], newLicenseImages = [], removedImages = [], removedLicenseImages = []) => {
   try {
     const propertyRef = collection(db, 'properties');
